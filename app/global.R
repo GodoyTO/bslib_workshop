@@ -6,12 +6,12 @@ if(!require(plotly)) install.packages('plotly'); require(plotly)
 
 custom_theme <- bs_theme(
     version = 5,
-    bootswatch = "lux",
-    primary = "#007bff"
+    bootswatch = "yeti"
 )
 
 data <- readRDS('data/dash_ds.rds')
 
+# Color palette ####
 pal <- c(
     '#ffcbcb', '#ffabab', '#ff8a8a', '#b87070', # Red
     '#e5ffc9', '#edffab', '#bdff8a', '#8ab870', # Green
@@ -21,7 +21,7 @@ pal <- c(
     '#e5c9ff', '#cbabff', '#bd8aff', '#8a70b8', # Purple
     '#ffe5c9', '#ffd0ab', '#ffb38a', '#c88170', # Orange
     '#c9ffff', '#abf1ff', '#8ae0ff', '#70a3b8', # Cyan
-    '#ffc9f2', '#ffabeb', '#ff8ae2', '#b870a3', # Magenta
+    '#ffc9f2', '#ffabfb', '#ff8af2', '#c870c3', # Magenta
     '#d4d1ff', '#bcbafe', '#817aef', '#918aef'  # Lilac
 )
 
@@ -29,7 +29,7 @@ pal <- c(
 ## Simple Donut plot ####
 plot_donut <- function(
         df, n, label, cor = pal,
-        text_n = ' subjects', title = NULL) {
+        text_n = NULL, title = NULL) {
 
     df$prop <- round(df[[n]]/sum(df[[n]])*100, 1)
     df[[label]] <- str_wrap(df[[label]], width = 16)
@@ -65,7 +65,7 @@ plot_donut <- function(
 }
 
 plot_pyramid <- function(
-        df, X, Y, Z, pal, lab_y = ' ', lab_x, text = 'Cases', title = NULL) {
+        df, X, Y, Z, pal, lab_y = NULL, lab_x, text = NULL, title = NULL) {
 
     maxim <- max(abs(df[[X]]))
     denom <- as.numeric(paste0(1, glue::glue_collapse(rep(0, nchar(maxim)-1))))

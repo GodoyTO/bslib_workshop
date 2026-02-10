@@ -2,9 +2,25 @@ source("global.R")
 source("1_dem_UI.R")
 
 ui <- page_navbar(
+    tags$head(
+        tags$style(HTML("
+   /* Align the flex display of the logo, text and navbar*/
+   .navbar-brand {
+      display: flex !important;
+      align-items: center !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      height: 30px;
+    }
+
+    .navbar-nav, .navbar-brand {
+      align-self: center;
+    }"
+        ))
+    ),
     title = div(
-        img(src = "dash.png", height = "30px"),
-        "Trying {bslib}", style = "margin-right: 20px;"
+        img(src = "dash.png", height = "30px", style = "margin-right: 20px;"),
+        span("Trying {bslib}")
     ),
     theme = custom_theme,
 

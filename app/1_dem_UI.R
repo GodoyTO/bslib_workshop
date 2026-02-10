@@ -8,9 +8,19 @@ dem_ui <- function(id) {nav_panel(
             width = 200,
             sliderInput(
                 inputId = NS(id, "age_sli"), label = "Select min and max age:",
-                min = min(data$nu_age), max(data$nu_age), value = range(data$nu_age)
+                min = min(data$nu_age), max = max(data$nu_age),
+                value = range(data$nu_age)
+            ),
+            selectizeInput(
+                inputId = NS(id, "eth_sel"),
+                label = "Select country of origin:",
+                choices = NULL, multiple = TRUE,
+                options = list(
+                    placeholder = 'Select an option',
+                    plugins = list("remove_button", "restore_on_backspace"))
             )
         ),
+
 
         # Upper cards layer ####
         layout_column_wrap(
