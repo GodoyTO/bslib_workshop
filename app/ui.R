@@ -2,10 +2,7 @@ source("global.R")
 source("1_dem_UI.R")
 
 ui <- page_navbar(
-    title = div(
-        img(src = "dash.png", height = "30px"),
-        "Trying {bslib}", style = "margin-right: 20px;"
-    ),
+    title = "Trying {bslib}",
     theme = custom_theme,
 
 
