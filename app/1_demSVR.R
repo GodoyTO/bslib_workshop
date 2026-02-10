@@ -1,29 +1,22 @@
 demSVR <- function(id) {moduleServer(id,function(input, output, session) {
 
-    ds <- reactive({
-        req(input$age_sli)
-        data %>%
-            filter(nu_age >= input$age_sli[1],
-                   nu_age <= input$age_sli[2])
-    })
-
     # Upper cards layer ####
     ## Total subjects ####
     output$all_sub <- renderText({
-        n_distinct(ds()$cd_pac)
+        n_distinct(data$cd_pac)
     })
 
     ## Male subjects ####
     output$mal_sub <- renderText({
 
-        df <- ds() %>% filter(tp_sex == 'M')
+        df <- data %>% filter(tp_sex == 'M')
         n_distinct(df$cd_pac)
     })
 
     ## Female subjects ####
     output$fem_sub <- renderText({
 
-        df <- ds() %>% filter(tp_sex == 'F')
+        df <- data %>% filter(tp_sex == 'F')
         n_distinct(df$cd_pac)
     })
 
@@ -31,7 +24,7 @@ demSVR <- function(id) {moduleServer(id,function(input, output, session) {
     ## Population pyramid #####
     output$pyr_pop <- renderPlotly({
 
-        df <- ds() %>%
+        df <- data %>%
             select(cd_pac, age_group, tp_sex) %>%
             reframe(n = n(), .by = c(age_group, tp_sex)) %>%
             complete(age_group, tp_sex, fill = list(n = 0)) %>%
@@ -52,7 +45,7 @@ demSVR <- function(id) {moduleServer(id,function(input, output, session) {
     ## Ethnicity plot layer #####
     output$eth_pop <- renderPlotly({
 
-        df <- ds() %>%
+        df <- data %>%
             select(cd_pac, nm_race) %>%
             group_by(nm_race)  %>%
             summarize(num = n()) %>%
