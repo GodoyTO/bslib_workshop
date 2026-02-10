@@ -2,9 +2,19 @@ demSVR <- function(id) {moduleServer(id,function(input, output, session) {
 
     ds <- reactive({
         req(input$age_sli)
+        eth <- is.null(input$eth_sel)
         data %>%
             filter(nu_age >= input$age_sli[1],
-                   nu_age <= input$age_sli[2])
+                   nu_age <= input$age_sli[2]) %>%
+            filter(eth | nm_ethn %in% input$eth_sel)
+    })
+
+    # Update Ethinicty selector
+    observe({
+        updateSelectizeInput(
+            inputId = "eth_sel",
+            choices = sort(unique(data$nm_ethn))
+        )
     })
 
     # Upper cards layer ####
