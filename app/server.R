@@ -1,7 +1,5 @@
 # Loading servers
-source("global.R")
 source("1_demSVR.R")
-
 
 ## Calling child servers for item #####
 server <- function(input, output, session) {
