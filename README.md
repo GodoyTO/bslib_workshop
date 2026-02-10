@@ -6,3 +6,4 @@ Other features so far:
 * customized header (logo and custom margins);
 * customized cards;
 * sidebar layout for selectors;
+* reactive selectizeInput
