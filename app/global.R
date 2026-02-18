@@ -25,6 +25,40 @@ pal <- c(
     '#d4d1ff', '#bcbafe', '#817aef', '#918aef'  # Lilac
 )
 
+## Simple horizontal bar plot #####
+plot_hbar <- function(
+        dt, x, y, color, total, title = NULL,
+        label_x = NULL,
+        var_text = NULL) {
+
+    porc <- round(100*(dt[[x]] / total), 1)
+
+    fig <- plot_ly() |>
+        add_trace(
+            y = dt[[y]], x = dt[[x]],
+            marker = list(color = color),
+            hoverinfo = 'text', textposition = 'none',
+            type = 'bar', name = ' ',
+            text = ~ paste0(dt[[y]], '\n',
+                            format(dt[[x]], big.mark = ' '), ' ',
+                            var_text, '\n',
+                            format(porc, decimal.mark = ','),
+                            '%')) %>%
+        layout(
+            title = list(text = title, y = 0.98, x = 0.5, font = list(size = 16)),
+            margin = list(pad = 1,
+                          t = 40),
+            yaxis = list(title = '', mirror = TRUE,
+                         showgrid = FALSE,
+                         tickfont = list(size = 15)),
+            xaxis = list(title = list(size = 16, text = label_x), mirror = TRUE,
+                         showgrid = TRUE, showticklabels = TRUE, zeroline = F,
+                         tickfont = list(size = 15)),
+
+            hoverlabel = list(font = list(size = 16)))
+
+    return(fig)
+}
 
 ## Simple Donut plot ####
 plot_donut <- function(
@@ -64,6 +98,7 @@ plot_donut <- function(
         )
 }
 
+# Population pyramid plot
 plot_pyramid <- function(
         df, X, Y, Z, pal, lab_y = NULL, lab_x, text = NULL, title = NULL) {
 
