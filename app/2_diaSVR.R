@@ -28,7 +28,7 @@ diaSVR <- function(id) {moduleServer(id,function(input, output, session) {
 
         df  %>%  plot_hbar(
             x = 'n', y = 'stage', color = pal[c(12,8,16,4,24)],
-            total = n, var_text = "Pacients"
+            total = n, var_text = "Subjects"
             )
     })
 
