@@ -25,6 +25,44 @@ pal <- c(
     '#d4d1ff', '#bcbafe', '#817aef', '#918aef'  # Lilac
 )
 
+## Simple horizontal bar plot #####
+plot_hbar <- function(
+        dt, x, y, color, total, title = NULL,
+        label_x = NULL,
+        var_text = NULL) {
+
+    porc <- round(100*(dt[[x]] / total), 1)
+    label_bar <- paste0(format(porc, decimal.mark = ','), '%')
+    dynamic_pos <- ifelse(dt[[x]] > (max(dt[[x]], na.rm = TRUE) * 0.9),
+                               "inside", "outside")
+    # dyn_color <- ifelse(dynamic_pos == "inside", "white", "black")
+
+    fig <- plot_ly(dt) |>
+        add_trace(
+            y = dt[[y]], x = dt[[x]],
+            marker = list(color = color),
+            type = 'bar', name = ' ', text = label_bar,
+            textposition = dynamic_pos,
+            textfont = list(size = 14, color = 'black'),
+            hoverinfo = 'text',
+            hovertext = ~paste0(dt[[y]], '\n',
+                                format(dt[[x]], big.mark = ' '), ' ', var_text, '\n',
+                                format(porc, decimal.mark = ','), '%')
+        ) %>%
+        layout(
+            title = list(text = title, y = 0.98, x = 0.5, font = list(size = 16)),
+            margin = list(pad = 1, t = 40, r = 50),
+            yaxis = list(title = '', showgrid = FALSE,
+                         tickfont = list(size = 15),
+                         autorange = "reversed"),
+            xaxis = list(title = list(size = 16, text = label_x),
+                         showgrid = TRUE, zeroline = F,
+                         tickfont = list(size = 15),
+                         range = c(0, max(dt[[x]], na.rm = TRUE) * 1.05)),
+            hoverlabel = list(font = list(size = 16)))
+
+    return(fig)
+}
 
 ## Simple Donut plot ####
 plot_donut <- function(
@@ -64,6 +102,7 @@ plot_donut <- function(
         )
 }
 
+# Population pyramid plot
 plot_pyramid <- function(
         df, X, Y, Z, pal, lab_y = NULL, lab_x, text = NULL, title = NULL) {
 

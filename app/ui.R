@@ -1,5 +1,6 @@
 source("global.R")
 source("1_dem_UI.R")
+source("2_dia_UI.R")
 
 ui <- page_navbar(
     tags$head(
@@ -26,6 +27,7 @@ ui <- page_navbar(
 
 
     dem_ui('dem'),
+    dia_ui('dia'),
     nav_panel(
         "Something",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
