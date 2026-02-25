@@ -159,3 +159,29 @@ plot_pyramid <- function(
             hoverlabel = list(font = list(size = 16))
         )
 }
+
+taxas <- function(dt, X, Y){
+
+    plt <- plot_ly(dt) %>%
+        add_trace(
+            x = dt[[X]], y = dt[[Y]],
+            type = 'scatter', mode = 'lines',
+            hoverinfo = 'text',
+            textposition = 'none'
+            ) %>%
+        layout(
+            legend = list(orientation = 'v',
+                          yanchor = "center",
+                          traceorder = 'normal', y = 0.5,
+                          font = list(size = 17)),
+
+            yaxis = list(title = list(font = list(size = 17))),
+
+            xaxis = list(title = list(text = 'Semana de primeiros sintomas',
+                                      font = list(size = 17)),
+                         nticks = 10),
+
+            hoverlabel = list(font = list(size = 17))
+        )
+    return(plt)
+}
