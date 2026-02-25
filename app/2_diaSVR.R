@@ -32,4 +32,22 @@ diaSVR <- function(id) {moduleServer(id,function(input, output, session) {
             )
     })
 
+    ## Diagnosis by time period #####
+    output$dia_tim <- renderPlotly({
+
+        df <- ds() %>%
+            select(dt_diag) %>%
+            mutate(period = floor_date(dt_diag, unit = 'month')) %>%
+            reframe(n = n(), .by = period)
+
+        n <- nrow(ds())
+
+        validate(
+            need(!is.null(df), 'No data'),
+            need(nrow(df) > 0, 'No data')
+        )
+
+        df  %>%  taxas(X = 'period', Y = 'n')
+    })
+
 })}

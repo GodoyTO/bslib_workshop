@@ -54,18 +54,17 @@ dia_ui <- function(id) {nav_panel(
         # Plots layer #####
         layout_column_wrap(
             width = 1/2, heights_equal = "row", fill = F,
-            ## Population pyramid #####
+            ## Horizontal bar of Diagnosis by Stage #####
             card(
-                # card_title("Population pyramid", class = "m-0 p-0"),
+                # card_title("Diagnosis by Stage", class = "m-0 p-0"),
                 card_body(plotlyOutput(NS(id,'stg_bar')), class = "m-0 p-0"),
                 full_screen = T
-            # ),
-            # ## Ethnicity plot layer #####
-            # card(
-            #     # card_title("Ethnicity plot", class = "m-0 p-0"),
-            #     card_body(plotlyOutput(NS(id,'eth_pop')), class = "m-0 p-0"),
-            #     card_footer("Categories made for this specific fake dataset"),
-            #     full_screen = T
+            ),
+            ## Line plot of Diagnosis by date #####
+            card(
+                # card_title("Diagnosis by date", class = "m-0 p-0"),
+                card_body(plotlyOutput(NS(id,'dia_tim')), class = "m-0 p-0"),
+                full_screen = T
             )
         )
     )
