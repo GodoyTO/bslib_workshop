@@ -160,7 +160,8 @@ plot_pyramid <- function(
         )
 }
 
-taxas <- function(dt, x, y, label, title_x = NULL){
+# Rates plot
+plot_rate <- function(dt, x, y, label, title_x = NULL){
 
     plt <- plot_ly(dt) %>%
         add_trace(
