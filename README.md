@@ -7,3 +7,4 @@ Other features so far:
 * customized cards;
 * sidebar layout for selectors;
 * reactive selectizeInput
+* card pill for two (or more) similar plot in the same space
