@@ -47,7 +47,7 @@ diaSVR <- function(id) {moduleServer(id,function(input, output, session) {
             need(nrow(df) > 0, 'No data')
         )
 
-        df  %>%  taxas(x = 'period', y = 'n', label = 'label', title_x = 'Diagnostics per month')
+        df %>% plot_rate(x = 'period', y = 'n', label = 'label', title_x = 'Diagnostics per month')
     })
 
     ## Diagnosis by time period #####
@@ -64,6 +64,6 @@ diaSVR <- function(id) {moduleServer(id,function(input, output, session) {
             need(nrow(df) > 0, 'No data')
         )
 
-        df  %>%  taxas(x = 'period', y = 'n', label = 'label', title_x = 'Diagnostics per year')
+        df %>% plot_rate(x = 'period', y = 'n', label = 'label', title_x = 'Diagnostics per year')
     })
 })}
