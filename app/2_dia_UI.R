@@ -61,10 +61,17 @@ dia_ui <- function(id) {nav_panel(
                 full_screen = T
             ),
             ## Line plot of Diagnosis by date #####
-            card(
-                # card_title("Diagnosis by date", class = "m-0 p-0"),
-                card_body(plotlyOutput(NS(id,'dia_tim')), class = "m-0 p-0"),
-                full_screen = T
+            navset_card_pill(
+                placement = 'above',
+
+                nav_panel(
+                    title = 'Month', plotlyOutput(NS(id,'timm'))
+                ),
+
+                nav_panel(
+                    title = 'Year',  plotlyOutput(NS(id,'timy'))
+                )
+
             )
         )
     )

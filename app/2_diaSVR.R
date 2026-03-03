@@ -33,21 +33,37 @@ diaSVR <- function(id) {moduleServer(id,function(input, output, session) {
     })
 
     ## Diagnosis by time period #####
-    output$dia_tim <- renderPlotly({
+    output$timm <- renderPlotly({
 
         df <- ds() %>%
             select(dt_diag) %>%
             mutate(period = floor_date(dt_diag, unit = 'month')) %>%
-            reframe(n = n(), .by = period)
-
-        n <- nrow(ds())
+            reframe(n = n(), .by = period) %>%
+            mutate(label  = paste0(
+                month(period, label = T, locale = "en_US.UTF-8"), '-',year(period)))
 
         validate(
             need(!is.null(df), 'No data'),
             need(nrow(df) > 0, 'No data')
         )
 
-        df  %>%  taxas(X = 'period', Y = 'n')
+        df  %>%  taxas(x = 'period', y = 'n', label = 'label', title_x = 'Diagnostics per month')
     })
 
+    ## Diagnosis by time period #####
+    output$timy <- renderPlotly({
+
+        df <- data %>%
+            select(dt_diag) %>%
+            mutate(period = floor_date(dt_diag, unit = 'year')) %>%
+            reframe(n = n(), .by = period) %>%
+            mutate(label  = year(period))
+
+        validate(
+            need(!is.null(df), 'No data'),
+            need(nrow(df) > 0, 'No data')
+        )
+
+        df  %>%  taxas(x = 'period', y = 'n', label = 'label', title_x = 'Diagnostics per year')
+    })
 })}

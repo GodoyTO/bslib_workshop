@@ -160,15 +160,16 @@ plot_pyramid <- function(
         )
 }
 
-taxas <- function(dt, X, Y){
+taxas <- function(dt, x, y, label, title_x = NULL){
 
     plt <- plot_ly(dt) %>%
         add_trace(
-            x = dt[[X]], y = dt[[Y]],
+            x = dt[[x]], y = dt[[y]],
             type = 'scatter', mode = 'lines',
+            textposition = 'none',
             hoverinfo = 'text',
-            textposition = 'none'
-            ) %>%
+            text = paste0('<b>',dt[[y]],' diagnostics</b><br>',
+                                dt[[label]])) %>%
         layout(
             legend = list(orientation = 'v',
                           yanchor = "center",
@@ -177,9 +178,11 @@ taxas <- function(dt, X, Y){
 
             yaxis = list(title = list(font = list(size = 17))),
 
-            xaxis = list(title = list(text = 'Semana de primeiros sintomas',
+            xaxis = list(title = list(text = title_x,
                                       font = list(size = 17)),
-                         nticks = 10),
+                         tickformat = "%Y",
+                         dtick = "M60",
+                         ticklabelmode = "period"),
 
             hoverlabel = list(font = list(size = 17))
         )
